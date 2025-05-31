@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://speaker_button"]
+
+[ext_resource type="Texture2D" uid="uid://bdpxy72fsmqyg" path="res://art/speaker_icon.svg" id="1_speaker"]
+[ext_resource type="Script" path="res://scripts/speaker_button.gd" id="2_script"]
+
+[node name="SpeakerButton" type="TextureButton"]
+custom_minimum_size = Vector2(24, 24)
+size_flags_vertical = 4
+texture_normal = ExtResource("1_speaker")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("2_script") 

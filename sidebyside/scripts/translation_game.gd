@@ -10,8 +10,8 @@ var game_over = false
 @onready var friend_sprite = $/root/BarLevel/friend
 @onready var date_sprite = $/root/BarLevel/date
 @onready var dialogue_box = $/root/BarLevel/UI/DialoguePanel
-@onready var original_text = $/root/BarLevel/UI/DialoguePanel/VBoxContainer/OriginalTextPanel/OriginalText
-@onready var choice_container = $/root/BarLevel/UI/DialoguePanel/VBoxContainer/ChoiceContainer
+@onready var original_text = $/root/BarLevel/UI/DialoguePanel/VBoxContainer/OriginalTextPanel/HBoxContainer/MarginContainer/OriginalText
+@onready var choice_container = $/root/BarLevel/UI/DialoguePanel/VBoxContainer/ScrollContainer/ChoiceContainer
 @onready var relationship_bar = $/root/BarLevel/UI/StatusPanel/HBoxContainer/RelationshipSection/RelationshipBar
 @onready var tension_bar = $/root/BarLevel/UI/StatusPanel/HBoxContainer/TensionSection/TensionBar
 @onready var friend_reaction = $/root/BarLevel/UI/StatusPanel/HBoxContainer/ReactionSection/FriendReaction
@@ -50,6 +50,76 @@ var conversations = [
 			{"text": "She wants to meet your parents soon", "score": -3, "reaction": "Isn't it too early for that?"},
 			{"text": "She comes from a big family", "score": 1, "reaction": "That's nice to know"},
 			{"text": "She thinks your family is weird", "score": -7, "reaction": "She doesn't even know them!"}
+		]
+	},
+	{
+		"original": "אני אוהבת את חוש ההומור שלך (I like your sense of humor)",
+		"context": "She's laughing at your friend's joke",
+		"choices": [
+			{"text": "She likes your sense of humor", "score": 4, "reaction": "I'm hilarious, right?"},
+			{"text": "She thinks you're a clown", "score": -4, "reaction": "Hey! I'm not a circus act!"},
+			{"text": "She's making fun of your jokes", "score": -6, "reaction": "That's... not cool"},
+			{"text": "She wants you to tell more dad jokes", "score": 2, "reaction": "Well, I do have more..."}
+		]
+	},
+	{
+		"original": "מה דעתך על מוזיקה ישראלית? (What do you think about Israeli music?)",
+		"context": "She's curious about your friend's music taste",
+		"choices": [
+			{"text": "She's asking about your thoughts on Israeli music", "score": 3, "reaction": "Music connects people!"},
+			{"text": "She thinks you only like heavy metal", "score": -2, "reaction": "Where did that come from?"},
+			{"text": "She wants to start a band with you", "score": -4, "reaction": "We JUST met!"},
+			{"text": "She hates all your favorite songs", "score": -5, "reaction": "Why would you say that?!"}
+		]
+	},
+	{
+		"original": "אני מעריכה אנשים שיודעים מה הם רוצים בחיים (I appreciate people who know what they want in life)",
+		"context": "The conversation is getting deeper",
+		"choices": [
+			{"text": "She appreciates people who know what they want in life", "score": 5, "reaction": "That's deep... I like it!"},
+			{"text": "She thinks you're indecisive", "score": -5, "reaction": "Hey! I know exactly what I... maybe..."},
+			{"text": "She's planning your future together", "score": -7, "reaction": "Slow down there!"},
+			{"text": "She's questioning your life choices", "score": -4, "reaction": "Not cool..."}
+		]
+	},
+	{
+		"original": "יש לך חיוך מקסים (You have a charming smile)",
+		"context": "She's giving your friend a compliment",
+		"choices": [
+			{"text": "She says you have a charming smile", "score": 4, "reaction": "*grins even wider*"},
+			{"text": "She thinks you need braces", "score": -6, "reaction": "My teeth are fine!"},
+			{"text": "She's making fun of your dimples", "score": -5, "reaction": "What's wrong with dimples?!"},
+			{"text": "She wants you to stop smiling", "score": -8, "reaction": "WHO would say that?!"}
+		]
+	},
+	{
+		"original": "אתה יודע לבשל? (Do you know how to cook?)",
+		"context": "She's asking about your friend's culinary skills",
+		"choices": [
+			{"text": "She's asking if you can cook", "score": 3, "reaction": "Time to show off my famous pasta!"},
+			{"text": "She thinks you burn water", "score": -3, "reaction": "That was ONE time..."},
+			{"text": "She wants you to be her personal chef", "score": -2, "reaction": "We're not there yet..."},
+			{"text": "She's judging your eating habits", "score": -5, "reaction": "My diet is perfectly fine!"}
+		]
+	},
+	{
+		"original": "מה החלום הכי גדול שלך? (What's your biggest dream?)",
+		"context": "She wants to know about your friend's aspirations",
+		"choices": [
+			{"text": "She's asking about your biggest dream", "score": 4, "reaction": "Time to shine!"},
+			{"text": "She thinks your dreams are unrealistic", "score": -6, "reaction": "Dreams are meant to be big!"},
+			{"text": "She wants to be in all your dreams", "score": -4, "reaction": "That's... creepy"},
+			{"text": "She's telling you to wake up", "score": -5, "reaction": "Really?! That's mean!"}
+		]
+	},
+	{
+		"original": "אני אוהבת את הדרך שבה אתה מקשיב (I like how you listen)",
+		"context": "She's appreciating your friend's attention",
+		"choices": [
+			{"text": "She likes how you listen", "score": 5, "reaction": "I'm all ears!"},
+			{"text": "She thinks you're not paying attention", "score": -7, "reaction": "I AM listening!"},
+			{"text": "She wants you to buy better headphones", "score": -3, "reaction": "That's not what she meant..."},
+			{"text": "She's commenting on your big ears", "score": -5, "reaction": "My ears are normal sized!"}
 		]
 	}
 ]
@@ -109,8 +179,8 @@ func start_conversation():
 		friend_sprite.set_animation_state("wait")
 		date_sprite.set_animation_state("wait")
 		
-		# Small pause before date starts talking
-		await get_tree().create_timer(0.5).timeout
+		# Small pause before date starts talking - reduced from 0.5 to 0.2 seconds
+		await get_tree().create_timer(0.2).timeout
 		
 		display_conversation(conversations[current_conversation])
 	else:
@@ -126,11 +196,11 @@ func display_conversation(conv_data):
 	# Date starts talking
 	date_sprite.set_animation_state("talk")
 	
-	# Set original text
-	original_text.text = conv_data.original + "\n\n" + conv_data.context
+	# Set original text without centering
+	original_text.text = "[b]Original:[/b] " + conv_data.original + "\n\n" + conv_data.context
 	
-	# Let the date talk for a moment before showing choices
-	await get_tree().create_timer(2.5).timeout
+	# Let the date talk for a moment before showing choices - reduced from 2.5 to 1.0 seconds
+	await get_tree().create_timer(1.0).timeout
 	
 	# Date stops talking and waits
 	date_sprite.set_animation_state("wait")
@@ -171,7 +241,7 @@ func _on_choice_selected(choice_index):
 	update_status_bars()
 	
 	# Let friend talk for a moment
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(1.0).timeout
 	
 	# Friend stops talking
 	friend_sprite.set_animation_state("wait")
@@ -192,8 +262,7 @@ func _on_choice_selected(choice_index):
 	# Move to next conversation
 	current_conversation += 1
 	
-	# Wait before starting next conversation
-	await get_tree().create_timer(1.5).timeout
+	# Start next conversation immediately
 	start_conversation()
 
 func show_character_reactions(score_change: int):
@@ -259,7 +328,7 @@ func end_game():
 	if tension_level >= 80:
 		date_sprite.show_emotion("angry")
 		friend_sprite.show_emotion("angry")
-		await get_tree().create_timer(2.0).timeout
+		await get_tree().create_timer(1.0).timeout
 	
 	# Clear any remaining choices
 	for child in choice_container.get_children():
@@ -281,7 +350,7 @@ func end_game():
 		date_sprite.show_emotion("angry")
 	
 	# Wait before showing restart button
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(1.0).timeout
 	
 	# Add restart button
 	var restart_btn = Button.new()
@@ -291,18 +360,34 @@ func end_game():
 
 func restart_game():
 	print("Restarting game...")
+	# Reset game variables
 	relationship_score = 50
 	tension_level = 0
 	current_conversation = 0
 	game_over = false
 	
-	# Reset characters to starting positions
-	setup_initial_positions()
-	
-	# Clear dialogue
+	# Reset UI elements
 	dialogue_box.visible = false
 	for child in choice_container.get_children():
 		child.queue_free()
+	
+	# Reset character positions and states
+	date_sprite.position = Vector2(-400, 248.0)    # Reset date to far left
+	friend_sprite.position = Vector2(1000, 244.0)   # Reset friend to far right
+	
+	# Reset character animations and emotions
+	date_sprite.set_animation_state("idle")
+	friend_sprite.set_animation_state("idle")
+	date_sprite.show_emotion("neutral")
+	friend_sprite.show_emotion("neutral")
+	
+	# Reset status bars
+	relationship_bar.value = relationship_score
+	tension_bar.value = tension_level
+	
+	# Clear any remaining friend reaction text
+	friend_reaction.text = ""
+	friend_reaction.modulate.a = 0
 	
 	# Restart the sequence
 	await walk_to_center()

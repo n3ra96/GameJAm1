@@ -46,10 +46,11 @@ func show_emotion(emotion_type: String):
 	match emotion_type:
 		"happy":
 			animated_sprite.modulate = Color.WHITE
-			# Add subtle bounce effect
+			# Add subtle bounce effect while preserving base scale
+			var base_scale = animated_sprite.scale
 			var tween = create_tween()
-			tween.tween_property(animated_sprite, "scale", Vector2(1.05, 1.05), 0.2)
-			tween.tween_property(animated_sprite, "scale", Vector2(1.0, 1.0), 0.2)
+			tween.tween_property(animated_sprite, "scale", base_scale * 1.05, 0.2)
+			tween.tween_property(animated_sprite, "scale", base_scale, 0.2)
 			
 		"angry":
 			animated_sprite.modulate = Color.RED

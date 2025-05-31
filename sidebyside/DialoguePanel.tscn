@@ -1,11 +1,14 @@
-[gd_scene format=3 uid="uid://bmyxkuq8tcsug"]
+[gd_scene load_steps=2 format=3 uid="uid://bmyxkuq8tcsug"]
+
+[ext_resource type="PackedScene" path="res://SpeakerButton.tscn" id="2_speaker"]
 
 [node name="DialoguePanel" type="Panel"]
-anchors_preset = 15
+custom_minimum_size = Vector2(0, 200)
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
+offset_bottom = 200.0
 grow_horizontal = 2
-grow_vertical = 2
+size_flags_vertical = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -19,12 +22,25 @@ grow_vertical = 2
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 
-[node name="OriginalText" type="RichTextLabel" parent="VBoxContainer/OriginalTextPanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/OriginalTextPanel"]
 layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/OriginalTextPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="OriginalText" type="RichTextLabel" parent="VBoxContainer/OriginalTextPanel/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
-text = "[center][b]Original:[/b] שלום[/center]"
+text = "[b]Original:[/b] שלום"
 fit_content = true
+
+[node name="SpeakerButton" parent="VBoxContainer/OriginalTextPanel/HBoxContainer/MarginContainer" instance=ExtResource("2_speaker")]
+layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 layout_mode = 2
@@ -37,7 +53,13 @@ theme_override_colors/font_outline_color = Color(0.6, 0.6, 0.6, 1)
 theme_override_font_sizes/font_size = 14
 text = "Choose your translation:"
 
-[node name="ChoiceContainer" type="VBoxContainer" parent="VBoxContainer"]
-layout_direction = 2
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ChoiceContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/separation = 10
