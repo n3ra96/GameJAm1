@@ -49,7 +49,7 @@ theme_override_constants/separation = 30
 
 [node name="NameLabel" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
-text = "Enter your name:"
+text = "My name is:"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
@@ -70,7 +70,7 @@ theme_override_constants/separation = 20
 
 [node name="ModeLabel" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
-text = "Select Game Mode:"
+text = "I want to learn:"
 horizontal_alignment = 1
 
 [node name="Option1Button" type="Button" parent="Panel/VBoxContainer"]
