@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://g6sworip481r"]
+
+[ext_resource type="Texture2D" uid="uid://t2mcgm5w2ui5" path="res://art/Screenshot 2025-05-30 160852.png" id="1_fnfir"]
+[ext_resource type="FontFile" uid="uid://bxyfrbb00n075" path="res://art/PixeletterBold.ttf" id="2_rjidh"]
+
+[node name="MarginContainer" type="MarginContainer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1047.0
+offset_bottom = -593.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_fnfir")
+region_rect = Rect2(0.125816, 0.704346, 96.4582, 93.8658)
+patch_margin_left = 33
+patch_margin_top = 32
+patch_margin_right = 36
+patch_margin_bottom = 23
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer"]
+texture_filter = 5
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_constants/paragraph_spacing = 0
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2_rjidh")
+text = "???"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

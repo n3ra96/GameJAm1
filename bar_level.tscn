@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://byfxp7n3o5dm2"]
+
+[ext_resource type="Texture2D" uid="uid://dunn5ujejhyip" path="res://art/background/20250530_1333_Bar Scene for Game_remix_01jwgby693etzs5fj9x0t0pdte.png" id="1_3llqf"]
+[ext_resource type="Script" uid="uid://cdsk8cdiss764" path="res://scripts/translation_game.gd" id="1_ctxq3"]
+[ext_resource type="PackedScene" uid="uid://duucvdh30hpo8" path="res://pause_menu.tscn" id="2_lycta"]
+[ext_resource type="PackedScene" uid="uid://difh3kwps3ovx" path="res://characters/date.tscn" id="3_lycta"]
+[ext_resource type="PackedScene" uid="uid://dkd1e3pns36a8" path="res://characters/friend.tscn" id="4_ctxq3"]
+[ext_resource type="PackedScene" uid="uid://c2l18wf3o4hh8" path="res://characters/player.tscn" id="5_2m0km"]
+[ext_resource type="PackedScene" uid="uid://bmyxkuq8tcsug" path="res://DialoguePanel.tscn" id="5_2rvt8"]
+[ext_resource type="PackedScene" uid="uid://c12dauwns85eu" path="res://StatusPanel.tscn" id="6_lycta"]
+
+[node name="BarLevel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ctxq3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = 3.0
+offset_right = 1154.0
+offset_bottom = 582.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_vertical = 0
+texture = ExtResource("1_3llqf")
+expand_mode = 2
+
+[node name="PauseMenu" parent="TextureRect" instance=ExtResource("2_lycta")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.455
+anchor_top = 0.387
+anchor_right = 0.549
+anchor_bottom = 0.611
+offset_left = 52.11
+offset_top = 65.427
+offset_right = -56.742
+offset_bottom = -64.269
+
+[node name="date" parent="." instance=ExtResource("3_lycta")]
+position = Vector2(79, 234)
+scale = Vector2(0.7, 0.7)
+
+[node name="friend" parent="." instance=ExtResource("4_ctxq3")]
+position = Vector2(496, 233)
+scale = Vector2(0.7, 0.7)
+
+[node name="player" parent="." instance=ExtResource("5_2m0km")]
+position = Vector2(738, 256)
+scale = Vector2(0.7, 0.7)
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 10
+follow_viewport_enabled = true
+
+[node name="DialoguePanel" parent="UI" instance=ExtResource("5_2rvt8")]
+anchors_preset = -1
+anchor_top = 0.806
+offset_left = -1.0
+offset_top = -72.288
+offset_right = -1.0
+offset_bottom = 4.0
+
+[node name="StatusPanel" parent="UI" instance=ExtResource("6_lycta")]
+anchor_bottom = 0.096
+offset_bottom = -0.208
